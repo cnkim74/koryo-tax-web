@@ -24,22 +24,42 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      # Cloudflare 자격증명을 아직 등록하지 않았으면 조용히 건너뜁니다.
+      # (설정 전에는 빨간 실패 대신 안내만 남기도록)
+      - name: Cloudflare 자격증명 확인
+        id: creds
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -n "$CLOUDFLARE_API_TOKEN" ] && [ -n "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::CLOUDFLARE_API_TOKEN / CLOUDFLARE_ACCOUNT_ID 시크릿이 없어 배포를 건너뜁니다. 저장소 Settings > Secrets and variables > Actions 에서 등록하세요."
+          fi
+
       - uses: actions/checkout@v7
+        if: steps.creds.outputs.ready == 'true'
 
       - uses: actions/setup-node@v7
+        if: steps.creds.outputs.ready == 'true'
         with:
           node-version: 24
           cache: npm
 
       - run: npm ci
+        if: steps.creds.outputs.ready == 'true'
 
       - name: Build (OpenNext + Next.js)
+        if: steps.creds.outputs.ready == 'true'
         run: npx opennextjs-cloudflare build
         env:
           NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL }}
           NEXT_PUBLIC_NOINDEX: ${{ vars.NEXT_PUBLIC_NOINDEX }}
 
       - name: Deploy
+        if: steps.creds.outputs.ready == 'true'
         run: npx opennextjs-cloudflare deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

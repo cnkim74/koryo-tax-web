@@ -1,5 +1,7 @@
 # 고려세무법인 용인점 홈페이지
 
+저장소: https://github.com/cnkim74/koryo-tax-web
+
 기존 단일 HTML 번들(`_reference/`)을 Next.js + Tailwind CSS 로 다시 만든 사이트입니다.
 원본의 문구와 디자인 톤(토스 블루 `#3182f6`, Pretendard)은 유지하고, 반응형·성능·SEO·상담폼·블로그를 새로 붙였습니다.
 
@@ -36,7 +38,8 @@ content/
 lib/
   posts.ts            마크다운 글 읽기
   contact-schema.ts   상담폼 검증 규칙 (클라이언트/서버 공용)
-_reference/           원본 HTML 및 압축 해제한 템플릿 (참고용, 빌드 제외)
+_reference/           원본에서 압축 해제한 템플릿·지도 (참고용, 빌드 제외)
+                      ※ 원본 22MB 번들 HTML 은 용량 때문에 저장소에서 제외했습니다 (로컬에만 보관)
 ```
 
 ## 문구 수정하기
@@ -135,6 +138,24 @@ npx wrangler secret put CONTACT_TO_EMAIL
 
 - ISR(주기적 재생성)을 쓰지 않으므로 R2 캐시 없이 **Workers 정적 에셋 캐시**(`open-next.config.ts`)로 미리 생성된 페이지를 제공합니다. 나중에 `revalidate` 를 쓰게 되면 R2 캐시로 바꿔야 합니다.
 - 상담폼의 IP 레이트리밋은 **인스턴스 메모리 기반**이라 Workers 에서는 격리 단위마다 따로 셉니다. 본격 운영 시에는 KV 나 Durable Object 로 옮기세요.
+
+### GitHub push 로 자동 배포 (선택)
+
+`.github/workflows/deploy.yml` 이 들어 있습니다. main 에 push 하면 자동 배포됩니다.
+자격증명을 등록하기 전까지는 배포 단계를 건너뛰므로 그냥 두어도 됩니다.
+
+저장소 **Settings > Secrets and variables > Actions** 에서 등록하세요.
+
+| 종류 | 이름 | 값 |
+|---|---|---|
+| Secret | `CLOUDFLARE_API_TOKEN` | Cloudflare > My Profile > API Tokens > "Edit Cloudflare Workers" 템플릿으로 발급 |
+| Secret | `CLOUDFLARE_ACCOUNT_ID` | Workers 대시보드 우측에 표시되는 계정 ID |
+| Variable | `NEXT_PUBLIC_SITE_URL` | 배포된 주소 (예: `https://koryo-tax-web.내계정.workers.dev`) |
+| Variable | `NEXT_PUBLIC_NOINDEX` | 임시 미리보기면 `1`, 정식 공개면 비워두기 |
+
+> Cloudflare 대시보드의 **Workers Builds** 로 저장소를 직접 연결하는 방법도 있습니다.
+> 그때는 빌드 명령을 `npx opennextjs-cloudflare build`, 배포 명령을 `npx wrangler deploy` 로 지정하고,
+> `NEXT_PUBLIC_*` 는 빌드 환경변수로 넣으세요.
 
 ## 배포 — Vercel (대안)
 
