@@ -1,0 +1,18 @@
+node_modules/
+.next/
+out/
+build/
+.DS_Store
+*.pem
+.env*
+!.env.example
+next-env.d.ts
+.vercel
+*.tsbuildinfo
+
+# Cloudflare Workers
+.open-next/
+.wrangler/
+
+# 원본 번들 (22MB, 폰트 인라인). 로컬 참고용으로만 두고 저장소에는 올리지 않습니다.
+_reference/고려세무법인 홈페이지.html

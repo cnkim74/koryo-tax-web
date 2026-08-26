@@ -1,0 +1,184 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+    "Noto Sans KR", system-ui, sans-serif;
+
+  /* Brand */
+  --color-brand: #3182f6;
+  --color-brand-dark: #1b64da;
+  --color-brand-soft: #e8f1fe;
+  --color-brand-tint: #f2f7ff;
+  --color-brand-on-dark: #6ea8ff;
+
+  /* Ink & text */
+  --color-ink: #191f28;
+  --color-ink-2: #333d4b;
+  --color-body: #4e5968;
+  --color-muted: #8b95a1;
+
+  /* Surfaces */
+  --color-surface: #f7f9fb;
+  --color-surface-2: #f2f4f6;
+  --color-line: #e5e8eb;
+
+  /* Dark section */
+  --color-night: #17171c;
+  --color-night-2: #212129;
+  --color-night-text: #b0b8c1;
+  --color-night-text-2: #d1d6db;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: #fff;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    letter-spacing: -0.02em;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-brand-soft);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+@layer utilities {
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* 스크롤 등장 애니메이션 — JS로 .is-visible 을 붙입니다. */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Leaflet 지도 톤다운 */
+.leaflet-container {
+  filter: grayscale(0.85) contrast(0.95);
+  font-family: var(--font-sans);
+  background: var(--color-surface-2);
+}
+
+/* 블로그 본문 타이포그래피 */
+.prose-ko {
+  font-size: 1.0625rem;
+  line-height: 1.85;
+  color: var(--color-body);
+}
+.prose-ko > * + * {
+  margin-top: 1.25em;
+}
+.prose-ko h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-ink);
+  margin-top: 2.5em;
+  letter-spacing: -0.03em;
+}
+.prose-ko h3 {
+  font-size: 1.1875rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  margin-top: 2em;
+}
+.prose-ko strong {
+  color: var(--color-ink);
+  font-weight: 700;
+}
+.prose-ko a {
+  color: var(--color-brand);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose-ko ul,
+.prose-ko ol {
+  padding-left: 1.25em;
+}
+.prose-ko li + li {
+  margin-top: 0.5em;
+}
+.prose-ko ul {
+  list-style: disc;
+}
+.prose-ko ol {
+  list-style: decimal;
+}
+.prose-ko blockquote {
+  border-left: 3px solid var(--color-brand);
+  padding: 0.25em 0 0.25em 1.25em;
+  color: var(--color-ink-2);
+  font-weight: 500;
+}
+.prose-ko hr {
+  border: 0;
+  border-top: 1px solid var(--color-line);
+  margin: 3em 0;
+}
+.prose-ko table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+.prose-ko th,
+.prose-ko td {
+  border: 1px solid var(--color-line);
+  padding: 0.625em 0.875em;
+  text-align: left;
+}
+.prose-ko th {
+  background: var(--color-surface);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "koryo-tax-web",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-08-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "observability": {
+    "enabled": true
+  }
+  // NEXT_PUBLIC_SITE_URL / NEXT_PUBLIC_NOINDEX 은 빌드 시점에 값이 박히므로
+  // 여기(vars)가 아니라 빌드 명령에서 넘겨야 합니다. README 참고.
+  // 상담 알림 메일 키 같은 비밀값은 `npx wrangler secret put RESEND_API_KEY` 로 등록하세요.
+}

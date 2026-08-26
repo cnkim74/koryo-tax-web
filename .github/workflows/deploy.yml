@@ -1,0 +1,46 @@
+# main 브랜치에 push 하면 Cloudflare Workers 로 자동 배포합니다.
+#
+# 사용하려면 GitHub 저장소 Settings 에서 아래를 등록하세요.
+#   Secrets:   CLOUDFLARE_API_TOKEN   (Cloudflare 대시보드 > My Profile > API Tokens
+#                                      > "Edit Cloudflare Workers" 템플릿으로 발급)
+#              CLOUDFLARE_ACCOUNT_ID  (Workers 대시보드 우측에 표시)
+#   Variables: NEXT_PUBLIC_SITE_URL   (예: https://koryo-tax-web.내계정.workers.dev)
+#              NEXT_PUBLIC_NOINDEX    (임시 미리보기면 1, 정식 공개면 비워두기)
+#
+# ※ NEXT_PUBLIC_* 은 빌드 시점에 값이 박히므로 반드시 build 단계에서 넘겨야 합니다.
+
+name: Deploy to Cloudflare Workers
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build (OpenNext + Next.js)
+        run: npx opennextjs-cloudflare build
+        env:
+          NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL }}
+          NEXT_PUBLIC_NOINDEX: ${{ vars.NEXT_PUBLIC_NOINDEX }}
+
+      - name: Deploy
+        run: npx opennextjs-cloudflare deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
