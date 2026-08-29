@@ -11,7 +11,7 @@
     "cf:preview": "NEXT_PUBLIC_NOINDEX=1 opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "cf:deploy": "NEXT_PUBLIC_NOINDEX=1 opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "cf:typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
-    "cf:deploy:prod": "opennextjs-cloudflare build && opennextjs-cloudflare deploy"
+    "cf:deploy:prod": "NEXT_PUBLIC_SITE_URL=https://www.thetaxplus.com opennextjs-cloudflare build && opennextjs-cloudflare deploy -e production"
   },
   "dependencies": {
     "gray-matter": "4.0.3",

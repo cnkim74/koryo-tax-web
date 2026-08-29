@@ -108,7 +108,7 @@ npm run cf:deploy
 |---|---|
 | `npm run cf:preview` | 로컬 Workers 런타임 미리보기 |
 | `npm run cf:deploy` | **임시 미리보기 배포** — 검색엔진 색인 차단(`noindex`) 상태 |
-| `npm run cf:deploy:prod` | 실제 공개용 배포 — 색인 허용 |
+| `npm run cf:deploy:prod` | 정식 도메인 배포 — 색인 허용 + thetaxplus.com 연결 (zone 등록 후에만 성공) |
 
 ### ⚠️ 환경변수는 빌드 시점에 박힙니다
 
@@ -138,6 +138,30 @@ npx wrangler secret put CONTACT_TO_EMAIL
 
 - ISR(주기적 재생성)을 쓰지 않으므로 R2 캐시 없이 **Workers 정적 에셋 캐시**(`open-next.config.ts`)로 미리 생성된 페이지를 제공합니다. 나중에 `revalidate` 를 쓰게 되면 R2 캐시로 바꿔야 합니다.
 - 상담폼의 IP 레이트리밋은 **인스턴스 메모리 기반**이라 Workers 에서는 격리 단위마다 따로 셉니다. 본격 운영 시에는 KV 나 Durable Object 로 옮기세요.
+
+### 정식 도메인(thetaxplus.com) 연결
+
+`wrangler.jsonc` 의 `env.production` 에 커스텀 도메인이 이미 정의돼 있습니다.
+**thetaxplus.com 이 Cloudflare zone 으로 등록된 뒤에** 아래를 실행하면 DNS 레코드와 SSL 인증서까지 자동으로 붙습니다.
+
+```bash
+npm run cf:deploy:prod
+```
+
+사전 준비 순서:
+
+1. **Squarespace 에서 `clientHold` 해제** — 안 풀면 어디서도 접속이 안 됩니다
+2. Cloudflare 대시보드 → **Add a domain** → `thetaxplus.com` → **Free 플랜** 선택
+3. Cloudflare 가 알려주는 **네임서버 2개**를 Squarespace DNS 설정에 입력
+4. 전파 완료(수 시간~48시간) 후 `npm run cf:deploy:prod`
+
+도메인 주소 체계는 **www 가 대표 주소**입니다.
+
+- `www.thetaxplus.com` → 사이트 제공
+- `thetaxplus.com` → `www` 로 308 영구 리다이렉트 (`next.config.ts`)
+
+> ⚠️ `next.config.ts` 의 host 매칭에는 정규식 앵커(`^…$`)가 반드시 필요합니다.
+> 앵커 없이 `thetaxplus.com` 만 쓰면 `www.thetaxplus.com` 에도 부분 일치해서 **무한 리다이렉트**가 됩니다.
 
 ### GitHub push 로 자동 배포 (선택)
 

@@ -10,7 +10,34 @@
   },
   "observability": {
     "enabled": true
+  },
+
+  // 기본(환경 미지정) 배포는 https://koryo-tax-web.<계정>.workers.dev 임시 주소로만 나갑니다.
+  // 도메인이 아직 Cloudflare 에 없어도 배포됩니다.
+  //
+  // 정식 도메인 배포는 `--env production` 을 씁니다. (npm run cf:deploy:prod)
+  // ※ 이 환경은 thetaxplus.com 이 Cloudflare zone 으로 등록된 뒤에야 성공합니다.
+  //    등록 전에 실행하면 "route/zone not found" 로 실패합니다.
+  "env": {
+    "production": {
+      // 같은 Worker 하나를 그대로 씁니다 (이름을 덮어쓰지 않으면 -production 이 붙습니다)
+      "name": "koryo-tax-web",
+      "observability": {
+        "enabled": true
+      },
+      "assets": {
+        "directory": ".open-next/assets",
+        "binding": "ASSETS"
+      },
+      // custom_domain: true 로 두면 Cloudflare 가 DNS 레코드와 SSL 인증서를
+      // 자동으로 만들어 줍니다. 대시보드에서 따로 설정할 필요 없습니다.
+      "routes": [
+        { "pattern": "thetaxplus.com", "custom_domain": true },
+        { "pattern": "www.thetaxplus.com", "custom_domain": true }
+      ]
+    }
   }
+
   // NEXT_PUBLIC_SITE_URL / NEXT_PUBLIC_NOINDEX 은 빌드 시점에 값이 박히므로
   // 여기(vars)가 아니라 빌드 명령에서 넘겨야 합니다. README 참고.
   // 상담 알림 메일 키 같은 비밀값은 `npx wrangler secret put RESEND_API_KEY` 로 등록하세요.
