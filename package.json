@@ -8,8 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "cf:preview": "NEXT_PUBLIC_NOINDEX=1 opennextjs-cloudflare build && opennextjs-cloudflare preview",
-    "cf:deploy": "NEXT_PUBLIC_NOINDEX=1 opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "cf:preview": "NEXT_PUBLIC_NOINDEX=1 opennextjs-cloudflare build && opennextjs-cloudflare preview -e \"\"",
+    "cf:deploy": "NEXT_PUBLIC_NOINDEX=1 opennextjs-cloudflare build && opennextjs-cloudflare deploy -e \"\"",
     "cf:typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "cf:deploy:prod": "NEXT_PUBLIC_SITE_URL=https://www.thetaxplus.com opennextjs-cloudflare build && opennextjs-cloudflare deploy -e production"
   },
