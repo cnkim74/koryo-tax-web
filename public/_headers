@@ -1,0 +1,7 @@
+# Cloudflare Workers 정적 에셋 헤더 규칙.
+# 기본값이 "public, max-age=0, must-revalidate" 라서, 파일명에 해시가 붙은
+# 빌드 산출물까지 매 방문마다 재검증 요청이 나갑니다. 재방문 속도를 위해 고정 캐시로 바꿉니다.
+# ※ Worker 가 생성하는 응답(HTML, API)에는 적용되지 않습니다. 그쪽은 next.config.ts 에서 처리합니다.
+
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
