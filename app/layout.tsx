@@ -4,6 +4,7 @@ import { site } from "@/content/site";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { OrganizationJsonLd } from "@/components/JsonLd";
+import { KakaoFloatingButton } from "@/components/KakaoFloatingButton";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -75,6 +76,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Nav />
         <main id="main">{children}</main>
         <Footer />
+        <KakaoFloatingButton />
         <OrganizationJsonLd />
       </body>
     </html>

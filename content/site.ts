@@ -211,6 +211,19 @@ export const offices: Office[] = [
   },
 ];
 
+/**
+ * 카카오톡 채널. 국내 고객은 전화보다 카톡 문의를 훨씬 편하게 여깁니다.
+ * chat 경로로 들어가면 채널 홈을 거치지 않고 바로 대화창이 열립니다.
+ */
+export const kakaoChannel = {
+  name: "고려세무법인",
+  home: "https://pf.kakao.com/_hCUwG",
+  chat: "https://pf.kakao.com/_hCUwG/chat",
+  /** 카카오 공식 버튼 색. 브랜드 금색과 별개로 서비스 식별색이라 그대로 씁니다. */
+  brandBg: "#FEE500",
+  brandFg: "#191600",
+} as const;
+
 export const contact = {
   id: "contact",
   eyebrow: "상담안내",

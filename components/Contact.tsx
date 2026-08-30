@@ -1,10 +1,12 @@
 import {
   contact,
+  kakaoChannel,
   kakaoDirectionsUrl,
   naverMapUrl,
   offices,
   type Office,
 } from "@/content/site";
+import { KakaoIcon } from "./KakaoIcon";
 import { CONTAINER_WIDE, SECTION_PADDING } from "./Section";
 import { Reveal } from "./Reveal";
 import { ContactForm } from "./ContactForm";
@@ -32,6 +34,29 @@ export function Contact() {
             className="m-0 text-[clamp(1rem,2.3vw,1.1875rem)] leading-[1.75] text-body"
           >
             {contact.body}
+          </Reveal>
+
+          <Reveal className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+            <a
+              href={kakaoChannel.chat}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ background: kakaoChannel.brandBg, color: kakaoChannel.brandFg }}
+              className="inline-flex items-center justify-center gap-2 rounded-[14px] px-7 py-4 text-[16.5px] font-bold transition-opacity hover:opacity-90"
+            >
+              <KakaoIcon className="h-5 w-5" />
+              카카오톡으로 상담하기
+            </a>
+            <a
+              href={offices[0].telHref}
+              className="inline-flex items-center justify-center gap-2 rounded-[14px] bg-brand px-7 py-4 text-[16.5px] font-bold text-white transition-colors hover:bg-brand-dark"
+            >
+              전화 {offices[0].tel}
+            </a>
+          </Reveal>
+
+          <Reveal as="p" className="mt-4 mb-0 text-[14.5px] text-muted">
+            카카오톡이 편하시면 위 버튼으로, 자세한 상담 신청은 아래 양식을 이용해 주세요.
           </Reveal>
         </div>
 

@@ -1,4 +1,4 @@
-import { about, kakaoPlaceUrl, offices, site } from "@/content/site";
+import { about, kakaoChannel, kakaoPlaceUrl, offices, site } from "@/content/site";
 
 /**
  * 로컬 SEO 구조화 데이터. 검색결과에 사무소 정보/지도가 노출되도록 돕습니다.
@@ -18,6 +18,7 @@ export function OrganizationJsonLd() {
         priceRange: "$$",
         areaServed: ["경기도 용인시", "서울특별시 서초구", "대한민국"],
         knowsAbout: ["세무기장", "상속세", "증여세", "양도소득세", "자산설계", "절세컨설팅"],
+        sameAs: [kakaoChannel.home],
         employee: {
           "@type": "Person",
           name: about.principal.name,
