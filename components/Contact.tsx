@@ -85,7 +85,7 @@ function MapLinks({ office }: { office: Office }) {
         href={kakaoDirectionsUrl(office)}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-1.5 rounded-xl bg-brand-soft px-4 py-2.5 text-[14.5px] font-bold text-brand transition-colors hover:bg-brand hover:text-white"
+        className="inline-flex items-center gap-1.5 rounded-xl bg-brand-soft px-4 py-2.5 text-[14.5px] font-bold text-brand-ink transition-colors hover:bg-brand hover:text-white"
       >
         <span aria-hidden>↗</span> 카카오맵 길찾기
       </a>

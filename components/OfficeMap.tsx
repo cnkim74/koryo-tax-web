@@ -34,9 +34,9 @@ export function OfficeMap({ office }: { office: Office }) {
 
       L.circleMarker([office.lat, office.lng], {
         radius: 9,
-        color: "#3182f6",
+        color: "#8A6D3B",
         weight: 2,
-        fillColor: "#3182f6",
+        fillColor: "#8A6D3B",
         fillOpacity: 0.85,
       })
         .addTo(map)

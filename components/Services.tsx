@@ -23,7 +23,7 @@ export function TaxSection() {
           <p className="m-0 text-[clamp(1.1875rem,3.4vw,1.5rem)] font-bold leading-[1.6] text-ink text-pretty">
             <Lines lines={s.callout.lines} />
           </p>
-          <p className="mt-[18px] mb-0 text-[17px] font-bold text-brand">
+          <p className="mt-[18px] mb-0 text-[17px] font-bold text-brand-ink">
             {s.callout.footnote}
           </p>
         </Reveal>
@@ -69,7 +69,7 @@ export function AssetSection() {
             >
               <div
                 aria-hidden
-                className="mb-[22px] flex h-11 w-11 items-center justify-center rounded-[14px] bg-brand-soft text-xl font-extrabold text-brand"
+                className="mb-[22px] flex h-11 w-11 items-center justify-center rounded-[14px] bg-brand-soft text-xl font-extrabold text-brand-ink"
               >
                 {card.badge}
               </div>

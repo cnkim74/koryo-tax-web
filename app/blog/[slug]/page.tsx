@@ -57,7 +57,7 @@ export default async function PostPage({ params }: Params) {
         </Link>
 
         <div className="mt-6 mb-4 flex flex-wrap items-center gap-3">
-          <span className="rounded-full bg-brand-soft px-3 py-1 text-[13px] font-bold text-brand">
+          <span className="rounded-full bg-brand-soft px-3 py-1 text-[13px] font-bold text-brand-ink">
             {post.category}
           </span>
           <span className="text-[13.5px] text-muted">

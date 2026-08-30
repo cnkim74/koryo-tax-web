@@ -4,12 +4,15 @@
   --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
     "Noto Sans KR", system-ui, sans-serif;
 
-  /* Brand */
-  --color-brand: #3182f6;
-  --color-brand-dark: #1b64da;
-  --color-brand-soft: #e8f1fe;
-  --color-brand-tint: #f2f7ff;
-  --color-brand-on-dark: #6ea8ff;
+  /* Brand — 공식 로고의 금색 계열.
+     대비: brand 4.85:1 / brand-ink 5.98:1 (흰 배경, WCAG 본문 기준 4.5:1) */
+  --color-brand: #8A6D3B;
+  --color-brand-dark: #6E5529;
+  /** 연한 배경(brand-soft/tint) 위의 글자용. brand 는 그 위에서 4.5:1 에 못 미칩니다. */
+  --color-brand-ink: #7A5F32;
+  --color-brand-soft: #F5EDDC;
+  --color-brand-tint: #FAF4E7;
+  --color-brand-on-dark: #D9BE7A;
 
   /* Ink & text */
   --color-ink: #191f28;
@@ -17,16 +20,16 @@
   --color-body: #4e5968;
   --color-muted: #8b95a1;
 
-  /* Surfaces */
-  --color-surface: #f7f9fb;
-  --color-surface-2: #f2f4f6;
-  --color-line: #e5e8eb;
+  /* Surfaces — 금색과 어울리도록 아주 살짝 따뜻한 중성 */
+  --color-surface: #F8F7F4;
+  --color-surface-2: #F3F1EC;
+  --color-line: #E7E4DC;
 
-  /* Dark section */
-  --color-night: #17171c;
-  --color-night-2: #212129;
-  --color-night-text: #b0b8c1;
-  --color-night-text-2: #d1d6db;
+  /* Dark section — 중성 회색 대신 딥네이비. 금색이 훨씬 살아납니다. */
+  --color-night: #141A28;
+  --color-night-2: #1E2637;
+  --color-night-text: #A9B2C4;
+  --color-night-text-2: #C8D0DE;
 }
 
 @layer base {

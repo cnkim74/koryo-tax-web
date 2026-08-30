@@ -11,7 +11,7 @@ export function PostCard({ post, onDark = false }: { post: PostMeta; onDark?: bo
     >
       <span
         className={`mb-4 inline-flex w-fit rounded-full px-3 py-1 text-[13px] font-bold ${
-          onDark ? "bg-white/10 text-brand-on-dark" : "bg-brand-soft text-brand"
+          onDark ? "bg-white/10 text-brand-on-dark" : "bg-brand-soft text-brand-ink"
         }`}
       >
         {post.category}

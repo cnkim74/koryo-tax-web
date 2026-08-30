@@ -76,7 +76,7 @@ export function ContactForm() {
       <div className="rounded-[24px] bg-white px-[clamp(1.5rem,5vw,2.5rem)] py-14 text-center shadow-[0_6px_24px_rgba(0,0,0,0.05)]">
         <div
           aria-hidden
-          className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-soft text-2xl text-brand"
+          className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-soft text-2xl text-brand-ink"
         >
           ✓
         </div>
@@ -194,7 +194,7 @@ export function ContactForm() {
             <input
               name="consent"
               type="checkbox"
-              className="mt-0.5 h-[18px] w-[18px] shrink-0 accent-[#3182f6]"
+              className="mt-0.5 h-[18px] w-[18px] shrink-0 accent-[#8A6D3B]"
               aria-invalid={Boolean(errors.consent)}
             />
             <span>
