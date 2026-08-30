@@ -164,7 +164,21 @@ export type Office = {
   lat: number;
   lng: number;
   mapLabel: string;
+  /** 카카오맵에 등록된 장소 ID. 길찾기/상세 링크에 씁니다. */
+  kakaoPlaceId: string;
+  /** 네이버 지도 검색어 */
+  naverQuery: string;
 };
+
+/** 방문자의 카카오맵 앱(또는 웹)에서 바로 길찾기가 열립니다. API 키가 필요 없습니다. */
+export const kakaoDirectionsUrl = (o: Office) =>
+  `https://map.kakao.com/link/to/${o.kakaoPlaceId}`;
+
+export const kakaoPlaceUrl = (o: Office) =>
+  `https://place.map.kakao.com/${o.kakaoPlaceId}`;
+
+export const naverMapUrl = (o: Office) =>
+  `https://map.naver.com/p/search/${encodeURIComponent(o.naverQuery)}`;
 
 export const offices: Office[] = [
   {
@@ -178,6 +192,8 @@ export const offices: Office[] = [
     lat: 37.2401,
     lng: 127.1837,
     mapLabel: "중부대로 1136, 201호",
+    kakaoPlaceId: "935860103",
+    naverQuery: "고려세무법인 용인점",
   },
   {
     key: "seoul",
@@ -190,6 +206,8 @@ export const offices: Office[] = [
     lat: 37.4926,
     lng: 127.0076,
     mapLabel: "서초대로51길 14, 203호",
+    kakaoPlaceId: "19113839",
+    naverQuery: "고려세무법인 서초",
   },
 ];
 

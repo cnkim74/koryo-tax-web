@@ -1,4 +1,4 @@
-import { about, offices, site } from "@/content/site";
+import { about, kakaoPlaceUrl, offices, site } from "@/content/site";
 
 /**
  * 로컬 SEO 구조화 데이터. 검색결과에 사무소 정보/지도가 노출되도록 돕습니다.
@@ -38,6 +38,8 @@ export function OrganizationJsonLd() {
             latitude: office.lat,
             longitude: office.lng,
           },
+          // 카카오맵에 등록된 장소와 동일한 곳임을 검색엔진에 알려줍니다
+          sameAs: [kakaoPlaceUrl(office)],
         })),
       },
       {

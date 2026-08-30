@@ -1,4 +1,10 @@
-import { contact, offices } from "@/content/site";
+import {
+  contact,
+  kakaoDirectionsUrl,
+  naverMapUrl,
+  offices,
+  type Office,
+} from "@/content/site";
 import { CONTAINER_WIDE, SECTION_PADDING } from "./Section";
 import { Reveal } from "./Reveal";
 import { ContactForm } from "./ContactForm";
@@ -55,6 +61,8 @@ export function Contact() {
                     <InfoRow term="대중교통">{office.transit}</InfoRow>
                     <InfoRow term="주차">{office.parking}</InfoRow>
                   </dl>
+
+                  <MapLinks office={office} />
                 </div>
                 <OfficeMap office={office} />
               </Reveal>
@@ -63,6 +71,33 @@ export function Contact() {
         </div>
       </div>
     </section>
+  );
+}
+
+/**
+ * 방문자의 지도 앱에서 바로 길찾기가 열립니다.
+ * 두 사무소 모두 카카오맵에 등록돼 있어 API 키 없이 장소 ID 링크만으로 동작합니다.
+ */
+function MapLinks({ office }: { office: Office }) {
+  return (
+    <div className="mt-6 flex flex-wrap gap-2">
+      <a
+        href={kakaoDirectionsUrl(office)}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-1.5 rounded-xl bg-brand-soft px-4 py-2.5 text-[14.5px] font-bold text-brand transition-colors hover:bg-brand hover:text-white"
+      >
+        <span aria-hidden>↗</span> 카카오맵 길찾기
+      </a>
+      <a
+        href={naverMapUrl(office)}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-1.5 rounded-xl bg-surface-2 px-4 py-2.5 text-[14.5px] font-bold text-ink-2 transition-colors hover:bg-line"
+      >
+        <span aria-hidden>↗</span> 네이버 지도
+      </a>
+    </div>
   );
 }
 
