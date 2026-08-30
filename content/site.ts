@@ -111,8 +111,18 @@ export const about = {
     title: "고려세무법인 용인점 대표 박소영",
     intro:
       "세무뿐 아니라 기업·투자·재무 분야의 경험을 바탕으로 세금 그 이후까지 함께 고민합니다.",
-    /** 실제 프로필 사진을 받으면 /public/principal.jpg 로 넣고 아래 경로를 채우세요. */
-    photo: null as string | null,
+    /**
+     * 대표세무사 프로필 사진.
+     * public/ 에 파일을 넣고 경로를 채우면 법인소개 섹션에 크게 표시됩니다.
+     * null 이면 사진 없이 텍스트만 나옵니다.
+     */
+    photo: "/park-soyoung.webp" as string | null,
+    /** 웹P 미지원 브라우저용 */
+    photoFallback: "/park-soyoung.jpg",
+    photoAlt: "고려세무법인 용인점 대표세무사 박소영",
+    /** 실제 픽셀 크기 (로딩 중 레이아웃 밀림 방지) */
+    photoWidth: 960,
+    photoHeight: 1279,
     groups: [
       {
         heading: "전문분야",
