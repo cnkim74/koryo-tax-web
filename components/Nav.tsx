@@ -27,16 +27,17 @@ export function Nav() {
   return (
     <nav className="fixed inset-x-0 top-0 z-100 border-b border-black/5 bg-white/85 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-[1140px] items-center justify-between gap-6 px-6">
-        <Link href="/" className="flex shrink-0 items-center gap-2" onClick={() => setOpen(false)}>
-          <span
-            aria-hidden
-            className="inline-flex h-[26px] w-[26px] items-center justify-center rounded-lg bg-brand text-sm font-extrabold text-white"
-          >
-            稅
-          </span>
-          <span className="text-[17px] font-extrabold tracking-[-0.02em] text-ink sm:text-lg">
-            {site.name}
-          </span>
+        <Link href="/" className="flex shrink-0 items-center" onClick={() => setOpen(false)}>
+          <picture>
+            <source srcSet="/logo.webp" type="image/webp" />
+            <img
+              src="/logo.png"
+              alt={`${site.name} ${site.branch}`}
+              width={861}
+              height={162}
+              className="h-8 w-auto sm:h-9"
+            />
+          </picture>
         </Link>
 
         {/* 데스크톱 메뉴 */}
