@@ -4,6 +4,9 @@ import { Reveal } from "./Reveal";
 export const SECTION_PADDING = "py-[clamp(5rem,11vw,9.375rem)] px-6";
 export const CONTAINER = "mx-auto w-full max-w-[820px]";
 export const CONTAINER_WIDE = "mx-auto w-full max-w-[1040px]";
+/** 서비스 섹션 — 본문 가독폭은 유지하면서 옆에 아이콘을 놓을 자리를 만듭니다. */
+export const CONTAINER_SERVICE = "mx-auto w-full max-w-[960px]";
+export const MEASURE = "max-w-[760px]";
 
 /**
  * 원본 디자인의 <br> 줄바꿈을 유지하되, 좁은 화면에서는 자동 줄바꿈에 맡깁니다.
