@@ -40,12 +40,7 @@ export const hero = {
 export const services = {
   tax: {
     id: "tax",
-    icon: {
-      src: "/icon-tax.webp",
-      alt: "",
-      width: 384,
-      height: 560,
-    },
+    icon: "tax" as const,
     eyebrow: "세무기장",
     titleLines: ["사업을 알아야,", "제대로 된 절세가 시작됩니다."],
     paragraphs: [
@@ -63,12 +58,7 @@ export const services = {
   },
   inherit: {
     id: "inherit",
-    icon: {
-      src: "/icon-gift.webp",
-      alt: "",
-      width: 422,
-      height: 560,
-    },
+    icon: "gift" as const,
     eyebrow: "상속·증여",
     titleLines: ["재산을 물려주는 것에도", "순서와 시간이 필요합니다."],
     paragraphsHtml: [
@@ -80,12 +70,7 @@ export const services = {
   },
   asset: {
     id: "asset",
-    icon: {
-      src: "/icon-home.webp",
-      alt: "",
-      width: 431,
-      height: 560,
-    },
+    icon: "home" as const,
     eyebrow: "자산설계",
     titleLines: ["절세한 돈,", "그다음이 더 중요합니다."],
     paragraphs: [
