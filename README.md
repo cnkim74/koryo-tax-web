@@ -115,11 +115,9 @@ npm run cf:deploy
 `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_NOINDEX` 는 페이지가 미리 생성될 때 값이 들어갑니다.
 그래서 `wrangler.jsonc` 의 `vars` 나 Cloudflare 대시보드에서 나중에 바꿔도 반영되지 않습니다. **빌드 명령에 붙여야** 합니다.
 
-첫 배포로 workers.dev 주소를 확인한 뒤, 그 주소를 넣어 다시 배포하면 메타태그·사이트맵이 맞춰집니다.
-
-```bash
-NEXT_PUBLIC_SITE_URL=https://koryo-tax-web.내계정.workers.dev npm run cf:deploy
-```
+`npm run cf:deploy` 에는 임시 주소(`https://koryo-tax-web.thetaxplus.workers.dev`)가 이미 박혀 있습니다.
+**이 값을 비워두면 공유 미리보기 이미지가 아직 살아있지 않은 실제 도메인을 가리켜 카톡에서 안 보입니다.**
+임시 주소가 바뀌면 `package.json` 의 `cf:deploy` 스크립트를 수정하세요.
 
 실제 도메인으로 정식 공개할 때:
 
