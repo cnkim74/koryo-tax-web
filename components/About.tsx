@@ -22,14 +22,6 @@ export function About() {
         <Eyebrow onDark>{about.eyebrow}</Eyebrow>
         <SectionTitle lines={about.titleLines} onDark />
         <Prose paragraphs={about.paragraphs} onDark />
-
-        <Reveal
-          as="p"
-          className="mt-3 mb-0 text-[clamp(1.25rem,3.8vw,1.625rem)] font-extrabold text-white"
-        >
-          {about.closing.before}
-          <span className="text-brand-on-dark">{about.closing.highlight}</span>
-        </Reveal>
       </div>
 
       {/* 대표세무사 카드 — 본문보다 넓게 빼서 사진을 크게 보여줍니다 */}
@@ -52,11 +44,8 @@ export function About() {
                   세무사
                 </span>
               </h3>
-              <p className="mt-0 mb-6 text-[15.5px] font-semibold text-brand-on-dark">
+              <p className="mt-0 mb-10 text-[15.5px] font-semibold text-brand-on-dark">
                 고려세무법인 용인점 대표
-              </p>
-              <p className="mt-0 mb-10 text-[16.5px] leading-[1.75] text-night-text">
-                {p.intro}
               </p>
 
               <div className="grid gap-8 border-t border-white/8 pt-9 sm:grid-cols-2">
