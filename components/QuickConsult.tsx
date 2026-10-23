@@ -204,6 +204,32 @@ export function QuickConsult() {
               <p className="m-0 mb-2.5 text-[12.5px] font-semibold text-muted">
                 바로 대화를 원하시면
               </p>
+
+              {/*
+                PC 에서는 휴대폰으로 QR 을 찍는 쪽이 가장 빠릅니다.
+                카카오는 웹사이트에서 PC 카카오톡 앱을 바로 여는 방법을 제공하지
+                않아, 아래 "카카오톡 상담" 버튼을 누르면 웹 로그인을 거쳐야 합니다.
+                QR 은 휴대폰 카카오톡이 바로 열리므로 로그인이 필요 없습니다.
+                좁은 화면에서는 이미 카카오톡 앱이 바로 열리므로 숨깁니다.
+              */}
+              <div className="mb-3 hidden items-center gap-3.5 rounded-xl bg-surface p-3 md:flex">
+                <img
+                  src="/kakao-qr.svg"
+                  alt="고려세무법인 카카오톡 채널 QR 코드"
+                  width={320}
+                  height={320}
+                  className="h-20 w-20 shrink-0 rounded-lg bg-white"
+                />
+                <div>
+                  <p className="m-0 text-[13.5px] font-bold text-ink">휴대폰으로 스캔</p>
+                  <p className="m-0 mt-1 text-[12.5px] leading-[1.55] text-body">
+                    카카오톡이 바로 열립니다.
+                    <br />
+                    로그인할 필요가 없습니다.
+                  </p>
+                </div>
+              </div>
+
               <div className="flex gap-2">
                 <KakaoChatButton
                   iconClassName="h-4 w-4"
