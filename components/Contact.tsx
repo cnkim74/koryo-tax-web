@@ -6,7 +6,7 @@ import {
   offices,
   type Office,
 } from "@/content/site";
-import { KakaoIcon } from "./KakaoIcon";
+import { KakaoChatButton } from "./KakaoChatButton";
 import { CONTAINER_WIDE, SECTION_PADDING } from "./Section";
 import { Reveal } from "./Reveal";
 import { ContactForm } from "./ContactForm";
@@ -37,16 +37,9 @@ export function Contact() {
           </Reveal>
 
           <Reveal className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
-            <a
-              href={kakaoChannel.chat}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ background: kakaoChannel.brandBg, color: kakaoChannel.brandFg }}
-              className="inline-flex items-center justify-center gap-2 rounded-[14px] px-7 py-4 text-[16.5px] font-bold transition-opacity hover:opacity-90"
-            >
-              <KakaoIcon className="h-5 w-5" />
+            <KakaoChatButton className="inline-flex items-center justify-center gap-2 rounded-[14px] px-7 py-4 text-[16.5px] font-bold transition-opacity hover:opacity-90">
               카카오톡으로 상담하기
-            </a>
+            </KakaoChatButton>
             <a
               href={offices[0].telHref}
               className="inline-flex items-center justify-center gap-2 rounded-[14px] bg-brand px-7 py-4 text-[16.5px] font-bold text-white transition-colors hover:bg-brand-dark"

@@ -3,6 +3,7 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { inquiryTopics, kakaoChannel, offices } from "@/content/site";
 import { contactSchema } from "@/lib/contact-schema";
+import { KakaoChatButton } from "./KakaoChatButton";
 import { KakaoIcon } from "./KakaoIcon";
 
 type Status = "idle" | "sending" | "sent" | "error";
@@ -204,16 +205,12 @@ export function QuickConsult() {
                 바로 대화를 원하시면
               </p>
               <div className="flex gap-2">
-                <a
-                  href={kakaoChannel.chat}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ background: kakaoChannel.brandBg, color: kakaoChannel.brandFg }}
+                <KakaoChatButton
+                  iconClassName="h-4 w-4"
                   className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-xl px-3 py-2.5 text-[13.5px] font-bold transition-opacity hover:opacity-90"
                 >
-                  <KakaoIcon className="h-4 w-4" />
-                  카카오톡
-                </a>
+                  카카오톡 상담
+                </KakaoChatButton>
                 <a
                   href={offices[0].telHref}
                   className="inline-flex flex-1 items-center justify-center rounded-xl bg-surface-2 px-3 py-2.5 text-[13.5px] font-bold text-ink-2 transition-colors hover:bg-line"
