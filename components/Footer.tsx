@@ -36,7 +36,24 @@ export function Footer() {
           <span>
             {site.name} · {site.domainLabel}
           </span>
-          <span>© {site.name}. All rights reserved.</span>
+          <span>
+            {/*
+              관리자 로그인 입구. 저작권 표시의 © 기호 자체를 링크로 씁니다.
+              일반 방문자 눈에는 평범한 글자로 보이지만, 색을 흐리게 하지 않아
+              화면낭독기나 키보드 사용자에게는 정상적으로 안내됩니다.
+              /admin 은 robots 와 메타 양쪽에서 색인 제외 상태입니다.
+            */}
+            <Link
+              href="/admin"
+              aria-label="관리자 로그인"
+              title="관리자"
+              rel="nofollow"
+              className="cursor-default transition-colors hover:text-brand-on-dark"
+            >
+              ©
+            </Link>{" "}
+            {site.name}. All rights reserved.
+          </span>
         </div>
       </div>
     </footer>
