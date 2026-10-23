@@ -2,6 +2,7 @@ import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { QuickConsult } from "@/components/QuickConsult";
 import { OrganizationJsonLd } from "@/components/JsonLd";
+import { Analytics } from "@/components/Analytics";
 
 /**
  * 일반 방문자용 화면의 공통 뼈대.
@@ -21,6 +22,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
       <Footer />
       <QuickConsult />
       <OrganizationJsonLd />
+      <Analytics />
     </>
   );
 }

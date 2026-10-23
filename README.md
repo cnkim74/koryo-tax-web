@@ -40,6 +40,7 @@ lib/
   contact-schema.ts   상담폼 검증 규칙 (클라이언트/서버 공용)
   db.ts               상담 접수 저장·조회 (Cloudflare D1)
   press.ts            보도자료 조회·유튜브 주소 파싱
+  analytics.ts        방문 실적 집계
   press-actions.ts    보도자료 등록·숨김·삭제 (Server Action)
   admin-auth.ts       관리자 로그인 세션
 migrations/           D1 스키마
@@ -98,6 +99,7 @@ CONTACT_FROM_EMAIL=noreply@본인도메인.com   # 도메인 인증 후
 |---|---|---|
 | 상담 접수 | `/admin` | 문의 목록, 처리 여부 표시 |
 | 보도자료 | `/admin/press` | 언론보도 링크 등록 — 메인 화면에 바로 반영 |
+| 방문 실적 | `/admin/stats` | 일별 방문·조회, 페이지별 인기도 |
 
 보도자료는 **유튜브 주소를 넣으면 영상으로**, 그 외 링크는 기사로 자동 분류됩니다.
 영상은 메인에서 썸네일로 보이고, 누르면 페이지 안에서 재생됩니다.

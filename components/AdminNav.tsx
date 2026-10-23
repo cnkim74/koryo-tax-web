@@ -1,9 +1,10 @@
 import Link from "next/link";
 
-export function AdminNav({ current }: { current: "inquiries" | "press" }) {
+export function AdminNav({ current }: { current: "inquiries" | "press" | "stats" }) {
   const tabs = [
     { key: "inquiries", href: "/admin", label: "상담 접수" },
     { key: "press", href: "/admin/press", label: "보도자료" },
+    { key: "stats", href: "/admin/stats", label: "방문 실적" },
   ] as const;
 
   return (
