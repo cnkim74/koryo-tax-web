@@ -32,7 +32,8 @@ export const hero = {
   titleLines: ["절세는 목표가 아니라", "시작입니다."],
   body: [
     "세무기장 · 상속·증여 · 자산설계",
-    "지켜낸 자산을 키우고, 그 가치를 다음 세대로 이어갑니다.",
+    "지켜낸 자산을 키우고,",
+    "그 가치를 다음 세대로 이어갑니다.",
   ],
   primaryCta: { href: "#contact", label: "상담 문의하기" },
   secondaryCta: { href: "#tax", label: "서비스 살펴보기" },
