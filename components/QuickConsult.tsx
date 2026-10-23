@@ -3,7 +3,7 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { inquiryTopics, kakaoChannel, offices } from "@/content/site";
 import { contactSchema } from "@/lib/contact-schema";
-import { KakaoChatButton } from "./KakaoChatButton";
+import { KakaoChatButton, OPEN_KAKAO_CHAT } from "./KakaoChatButton";
 import { KakaoIcon } from "./KakaoIcon";
 
 type Status = "idle" | "sending" | "sent" | "error";
@@ -22,13 +22,25 @@ const field =
 export function QuickConsult() {
   const uid = useId();
   const [open, setOpen] = useState(false);
+  /** form = 상담 신청 양식, kakao = 카카오톡 채팅 화면 */
+  const [view, setView] = useState<"form" | "kakao">("form");
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string | null>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const firstFieldRef = useRef<HTMLInputElement>(null);
 
+  // 페이지 어디서든 카카오톡 버튼을 누르면 이 창을 채팅 화면으로 엽니다.
   useEffect(() => {
-    if (!open) return;
+    const onOpenKakao = () => {
+      setView("kakao");
+      setOpen(true);
+    };
+    window.addEventListener(OPEN_KAKAO_CHAT, onOpenKakao);
+    return () => window.removeEventListener(OPEN_KAKAO_CHAT, onOpenKakao);
+  }, []);
+
+  useEffect(() => {
+    if (!open || view !== "form") return;
     firstFieldRef.current?.focus();
 
     const onKey = (e: KeyboardEvent) => {
@@ -45,7 +57,7 @@ export function QuickConsult() {
       clearTimeout(t);
       document.removeEventListener("mousedown", onClick);
     };
-  }, [open]);
+  }, [open, view]);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -97,14 +109,32 @@ export function QuickConsult() {
           ref={panelRef}
           role="dialog"
           aria-label="빠른 상담"
-          className="fixed right-4 bottom-24 z-95 flex max-h-[calc(100dvh-8rem)] w-[calc(100vw-2rem)] max-w-[22.5rem] flex-col overflow-hidden rounded-[20px] border border-line bg-white shadow-[0_12px_44px_rgba(0,0,0,0.18)] sm:right-7 sm:bottom-28"
+          className={`fixed right-4 bottom-24 z-95 flex max-h-[calc(100dvh-8rem)] w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-[20px] border border-line bg-white shadow-[0_12px_44px_rgba(0,0,0,0.18)] sm:right-7 sm:bottom-28 ${
+            view === "kakao" ? "h-[40rem] max-w-[25rem]" : "max-w-[22.5rem]"
+          }`}
         >
           <div className="flex items-start justify-between gap-3 bg-night px-5 py-4">
-            <div>
-              <p className="m-0 text-[15px] font-extrabold text-white">빠른 상담</p>
-              <p className="m-0 mt-0.5 text-[12.5px] text-night-text">
-                남겨주시면 담당 세무사가 연락드립니다
-              </p>
+            <div className="flex items-start gap-2.5">
+              {view === "kakao" ? (
+                <button
+                  type="button"
+                  onClick={() => setView("form")}
+                  aria-label="상담 신청 양식으로 돌아가기"
+                  className="-ml-1 mt-px flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-[16px] text-night-text transition-colors hover:bg-white/10 hover:text-white"
+                >
+                  ←
+                </button>
+              ) : null}
+              <div>
+                <p className="m-0 text-[15px] font-extrabold text-white">
+                  {view === "kakao" ? "카카오톡 상담" : "빠른 상담"}
+                </p>
+                <p className="m-0 mt-0.5 text-[12.5px] text-night-text">
+                  {view === "kakao"
+                    ? "카카오 로그인 후 바로 대화할 수 있습니다"
+                    : "남겨주시면 담당 세무사가 연락드립니다"}
+                </p>
+              </div>
             </div>
             <button
               type="button"
@@ -116,6 +146,32 @@ export function QuickConsult() {
             </button>
           </div>
 
+          {view === "kakao" ? (
+            <div className="flex min-h-0 flex-1 flex-col">
+              {/*
+                카카오톡 채널 채팅을 그대로 띄웁니다.
+                이미 카카오에 로그인된 방문자는 바로 대화창이 보입니다.
+                서드파티 쿠키를 막는 브라우저에서는 화면이 비거나 로그인이
+                안 될 수 있어 아래에 새 창 링크를 함께 둡니다.
+              */}
+              <iframe
+                src={kakaoChannel.chat}
+                title="카카오톡 상담"
+                className="min-h-0 w-full flex-1 border-0"
+              />
+              <div className="flex items-center justify-between gap-3 border-t border-line px-4 py-2.5">
+                <span className="text-[12px] text-muted">화면이 보이지 않으면</span>
+                <a
+                  href={kakaoChannel.chat}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[12.5px] font-bold text-brand-ink underline"
+                >
+                  새 창에서 열기 ↗
+                </a>
+              </div>
+            </div>
+          ) : (
           <div className="overflow-y-auto px-5 py-5">
             {status === "sent" ? (
               <div className="py-6 text-center">
@@ -246,6 +302,7 @@ export function QuickConsult() {
               </div>
             </div>
           </div>
+          )}
         </div>
       ) : null}
 
