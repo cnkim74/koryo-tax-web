@@ -58,6 +58,7 @@ export function QuickConsult() {
       topic: String(data.get("topic") ?? inquiryTopics[5]),
       message: String(data.get("message") ?? ""),
       consent: data.get("consent") === "on",
+      source: "quick" as const,
     };
 
     const parsed = contactSchema.safeParse(payload);
@@ -75,7 +76,7 @@ export function QuickConsult() {
         body: JSON.stringify(parsed.data),
       });
       if (!res.ok) {
-        const j = await res.json().catch(() => ({}));
+        const j = (await res.json().catch(() => ({}))) as { error?: string };
         setError(j?.error ?? "접수에 실패했습니다. 잠시 후 다시 시도해 주세요.");
         setStatus("error");
         return;

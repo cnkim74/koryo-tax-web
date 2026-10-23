@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { contactSchema } from "@/lib/contact-schema";
+import { getDb } from "@/lib/db";
 
 export const runtime = "nodejs";
 
@@ -77,7 +78,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, fieldErrors }, { status: 422 });
   }
 
-  const { name, phone, email, topic, message, company } = parsed.data;
+  const { name, phone, email, topic, message, source, company } = parsed.data;
 
   // 허니팟이 채워졌으면 조용히 성공 처리 (봇에게 실패를 알리지 않음)
   if (company) return NextResponse.json({ ok: true });
@@ -94,14 +95,42 @@ export async function POST(request: Request) {
     `접수시각: ${new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })}`,
   ].join("\n");
 
+  // 1) 먼저 저장합니다. 저장이 곧 접수 기록이라 실패하면 접수 실패로 처리합니다.
+  const db = await getDb();
+  if (db) {
+    try {
+      await db
+        .prepare(
+          `INSERT INTO inquiries (created_at, name, phone, email, topic, message, source)
+           VALUES (?, ?, ?, ?, ?, ?, ?)`,
+        )
+        .bind(
+          new Date().toISOString(),
+          name,
+          phone,
+          email || null,
+          topic,
+          message,
+          source ?? "form",
+        )
+        .run();
+    } catch (err) {
+      console.error("[contact] 저장 실패", err);
+      return NextResponse.json(
+        { ok: false, error: "접수 처리 중 문제가 발생했습니다. 전화로 문의해 주세요." },
+        { status: 500 },
+      );
+    }
+  } else {
+    // D1 바인딩 전이라면 최소한 로그에는 남깁니다.
+    console.warn("[contact] DB 바인딩이 없어 저장하지 못했습니다.");
+  }
+
+  // 2) 알림 메일은 부가 기능입니다. 실패해도 이미 저장됐으므로 접수는 성공으로 둡니다.
   try {
     await notify(`[상담문의] ${name} · ${topic}`, body);
   } catch (err) {
     console.error("[contact] 알림 전송 실패", err);
-    return NextResponse.json(
-      { ok: false, error: "접수 처리 중 문제가 발생했습니다. 전화로 문의해 주세요." },
-      { status: 500 },
-    );
   }
 
   return NextResponse.json({ ok: true });

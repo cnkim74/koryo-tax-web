@@ -38,6 +38,9 @@ content/
 lib/
   posts.ts            마크다운 글 읽기
   contact-schema.ts   상담폼 검증 규칙 (클라이언트/서버 공용)
+  db.ts               상담 접수 저장·조회 (Cloudflare D1)
+  admin-auth.ts       관리자 로그인 세션
+migrations/           D1 스키마
 _reference/           원본에서 압축 해제한 템플릿·지도 (참고용, 빌드 제외)
                       ※ 원본 22MB 번들 HTML 은 용량 때문에 저장소에서 제외했습니다 (로컬에만 보관)
 ```
@@ -81,6 +84,64 @@ CONTACT_FROM_EMAIL=noreply@본인도메인.com   # 도메인 인증 후
 ```
 
 스팸 방지로 허니팟 필드와 IP당 10분에 5건 제한이 걸려 있습니다.
+
+## 상담 접수 관리 (/admin)
+
+접수된 문의를 목록으로 보고 처리 여부를 표시하는 화면입니다.
+사이트 메뉴·푸터가 붙지 않는 별도 레이아웃이고, 검색엔진 색인에서도 제외됩니다.
+
+### 처음 한 번만 하면 되는 설정
+
+**1. 데이터베이스 만들기** — Cloudflare D1 (무료 범위로 충분합니다)
+
+```bash
+npx wrangler d1 create koryo-tax-inquiries
+```
+
+출력된 `database_id` 를 `wrangler.jsonc` 의 **두 곳**(기본 / `env.production`)에 있는
+`PUT_DATABASE_ID_HERE` 자리에 넣습니다.
+
+**2. 표 만들기**
+
+```bash
+npx wrangler d1 migrations apply koryo-tax-inquiries --remote
+```
+
+**3. 비밀번호 등록** — 코드에 넣지 말고 secret 으로 등록합니다.
+
+```bash
+npx wrangler secret put ADMIN_PASSWORD
+npx wrangler secret put ADMIN_SESSION_SECRET
+```
+
+`ADMIN_SESSION_SECRET` 은 로그인 쿠키 서명에만 쓰는 임의의 긴 문자열입니다.
+`openssl rand -hex 32` 로 만들어 붙여넣으면 됩니다.
+
+**4. 배포**
+
+```bash
+npm run cf:deploy
+```
+
+이후 `배포주소/admin` 에서 비밀번호로 로그인합니다.
+
+### 로컬에서 쓰려면
+
+`.env.local` 에 `ADMIN_PASSWORD` 와 `ADMIN_SESSION_SECRET` 을 넣고,
+로컬 DB 에 표를 만든 뒤 `npm run dev` 를 실행합니다.
+
+```bash
+npx wrangler d1 migrations apply koryo-tax-inquiries --local
+```
+
+### 보안 메모
+
+- 비밀번호는 코드·저장소에 없고 Cloudflare secret 에만 있습니다
+- 쿠키에는 비밀번호가 아니라 만료시각에 HMAC 서명을 붙인 값만 담고, HttpOnly·Secure·SameSite 가 걸려 있습니다
+- 세션은 8시간 후 만료됩니다
+- 로그인 시도는 IP 기준 10분에 8회로 제한합니다
+- 비밀번호 비교는 입력값에 따라 걸리는 시간이 달라지지 않도록 처리했습니다
+- IP 는 저장하지 않습니다 (개인정보 최소 수집)
 
 ## 배포 — Cloudflare Workers (workers.dev)
 

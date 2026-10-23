@@ -1,10 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { site } from "@/content/site";
-import { Nav } from "@/components/Nav";
-import { Footer } from "@/components/Footer";
-import { OrganizationJsonLd } from "@/components/JsonLd";
-import { QuickConsult } from "@/components/QuickConsult";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -66,19 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
         />
       </head>
-      <body>
-        <a
-          href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-200 focus:rounded-lg focus:bg-brand focus:px-4 focus:py-2 focus:text-white"
-        >
-          본문으로 건너뛰기
-        </a>
-        <Nav />
-        <main id="main">{children}</main>
-        <Footer />
-        <QuickConsult />
-        <OrganizationJsonLd />
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

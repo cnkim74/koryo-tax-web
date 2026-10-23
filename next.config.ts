@@ -1,4 +1,8 @@
 import type { NextConfig } from "next";
+import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
+
+// `next dev` 에서도 D1 같은 Cloudflare 바인딩을 쓸 수 있게 합니다 (로컬 DB 사용).
+void initOpenNextCloudflareForDev();
 
 /**
  * 정식 도메인. www 를 대표 주소로 쓰고, 루트(apex)로 들어오면 www 로 넘깁니다.

@@ -29,6 +29,7 @@ export function ContactForm() {
       topic: String(data.get("topic") ?? ""),
       message: String(data.get("message") ?? ""),
       consent: data.get("consent") === "on",
+      source: "form" as const,
       company: String(data.get("company") ?? ""),
     };
 
@@ -54,7 +55,10 @@ export function ContactForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(parsed.data),
       });
-      const json = await res.json().catch(() => ({}));
+      const json = (await res.json().catch(() => ({}))) as {
+        error?: string;
+        fieldErrors?: Record<string, string>;
+      };
 
       if (!res.ok) {
         if (json?.fieldErrors) setErrors(json.fieldErrors);

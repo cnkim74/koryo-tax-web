@@ -12,6 +12,16 @@
     "enabled": true
   },
 
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "koryo-tax-inquiries",
+      // `npx wrangler d1 create koryo-tax-inquiries` 실행 후 출력되는 id 를 넣으세요.
+      "database_id": "PUT_DATABASE_ID_HERE",
+      "migrations_dir": "migrations"
+    }
+  ],
+
   // 기본(환경 미지정) 배포는 https://koryo-tax-web.<계정>.workers.dev 임시 주소로만 나갑니다.
   // 도메인이 아직 Cloudflare 에 없어도 배포됩니다.
   //
@@ -29,6 +39,14 @@
         "directory": ".open-next/assets",
         "binding": "ASSETS"
       },
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "koryo-tax-inquiries",
+          "database_id": "PUT_DATABASE_ID_HERE",
+          "migrations_dir": "migrations"
+        }
+      ],
       // custom_domain: true 로 두면 Cloudflare 가 DNS 레코드와 SSL 인증서를
       // 자동으로 만들어 줍니다. 대시보드에서 따로 설정할 필요 없습니다.
       "routes": [
