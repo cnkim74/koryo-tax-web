@@ -27,7 +27,14 @@ export function KakaoChatButton({
   function onClick(e: React.MouseEvent<HTMLAnchorElement>) {
     // 새 탭으로 열기 등 사용자의 의도적인 조작은 그대로 둡니다.
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
-    if (window.innerWidth < 768) return;
+
+    // 휴대폰·태블릿에서는 카카오톡 앱이 열리는 편이 훨씬 낫습니다.
+    // 창 너비로 판단하면 PC 에서 브라우저를 좁게 띄웠을 때도 새 탭으로 새어나가므로
+    // 터치 기기 여부로 판단합니다.
+    const isTouch =
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(pointer: coarse)").matches;
+    if (isTouch) return;
 
     e.preventDefault();
     window.dispatchEvent(new CustomEvent(OPEN_KAKAO_CHAT));

@@ -110,7 +110,7 @@ export function QuickConsult() {
           role="dialog"
           aria-label="빠른 상담"
           className={`fixed right-4 bottom-24 z-95 flex max-h-[calc(100dvh-8rem)] w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-[20px] border border-line bg-white shadow-[0_12px_44px_rgba(0,0,0,0.18)] sm:right-7 sm:bottom-28 ${
-            view === "kakao" ? "h-[40rem] max-w-[25rem]" : "max-w-[22.5rem]"
+            view === "kakao" ? "h-[min(44rem,calc(100dvh-7rem))] max-w-[26.5rem]" : "max-w-[22.5rem]"
           }`}
         >
           <div className="flex items-start justify-between gap-3 bg-night px-5 py-4">
@@ -159,15 +159,14 @@ export function QuickConsult() {
                 title="카카오톡 상담"
                 className="min-h-0 w-full flex-1 border-0"
               />
-              <div className="flex items-center justify-between gap-3 border-t border-line px-4 py-2.5">
-                <span className="text-[12px] text-muted">화면이 보이지 않으면</span>
+              <div className="border-t border-line px-4 py-2">
                 <a
                   href={kakaoChannel.chat}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[12.5px] font-bold text-brand-ink underline"
+                  className="text-[11.5px] text-muted transition-colors hover:text-brand-ink"
                 >
-                  새 창에서 열기 ↗
+                  화면이 비어 있으면 새 창에서 열기 ↗
                 </a>
               </div>
             </div>
