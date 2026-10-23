@@ -16,8 +16,7 @@
     {
       "binding": "DB",
       "database_name": "koryo-tax-inquiries",
-      // `npx wrangler d1 create koryo-tax-inquiries` 실행 후 출력되는 id 를 넣으세요.
-      "database_id": "PUT_DATABASE_ID_HERE",
+      "database_id": "fac8d23f-6dfa-48d0-abae-e526e7e02be0",
       "migrations_dir": "migrations"
     }
   ],
@@ -43,7 +42,7 @@
         {
           "binding": "DB",
           "database_name": "koryo-tax-inquiries",
-          "database_id": "PUT_DATABASE_ID_HERE",
+          "database_id": "fac8d23f-6dfa-48d0-abae-e526e7e02be0",
           "migrations_dir": "migrations"
         }
       ],
