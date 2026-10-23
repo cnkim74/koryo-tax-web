@@ -42,6 +42,11 @@
     color: var(--color-ink);
     font-family: var(--font-sans);
     letter-spacing: -0.02em;
+    /* 한국어는 어절 단위로 끊어야 자연스럽습니다.
+       keep-all 이 없으면 "이어갑니다" 가 "이어 / 갑니다" 로 잘립니다.
+       아주 긴 단어(URL 등)는 넘치지 않도록 break-word 로 받칩니다. */
+    word-break: keep-all;
+    overflow-wrap: break-word;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }

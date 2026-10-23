@@ -3,7 +3,6 @@ import {
   CONTAINER_SERVICE,
   Eyebrow,
   MEASURE,
-  Prose,
   ProseHtml,
   SECTION_PADDING,
   SectionTitle,
@@ -21,7 +20,7 @@ export function TaxSection() {
         </ServiceHeader>
 
         <div className={`mt-10 ${MEASURE}`}>
-          <Prose paragraphs={s.paragraphs} />
+          <ProseHtml paragraphs={s.paragraphsHtml} />
         </div>
       </div>
     </section>
@@ -57,7 +56,7 @@ export function AssetSection() {
         </ServiceHeader>
 
         <div className={`mt-10 ${MEASURE}`}>
-          <Prose paragraphs={s.paragraphs} />
+          <ProseHtml paragraphs={s.paragraphsHtml} />
         </div>
       </div>
     </section>

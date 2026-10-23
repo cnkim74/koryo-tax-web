@@ -9,8 +9,8 @@ export const CONTAINER_SERVICE = "mx-auto w-full max-w-[960px]";
 export const MEASURE = "max-w-[760px]";
 
 /**
- * 원본 디자인의 <br> 줄바꿈을 유지하되, 좁은 화면에서는 자동 줄바꿈에 맡깁니다.
- * (모바일에서 강제 줄바꿈이 겹쳐 어색해지는 것을 막습니다.)
+ * 지정한 위치에서 항상 줄을 바꿉니다. 모바일에서도 동일하게 적용되므로,
+ * 각 줄이 한 줄에 들어가도록 글자 크기 하한을 함께 맞춰야 합니다.
  */
 export function Lines({ lines }: { lines: readonly string[] }) {
   return (
@@ -18,11 +18,7 @@ export function Lines({ lines }: { lines: readonly string[] }) {
       {lines.map((line, i) => (
         <Fragment key={line}>
           {line}
-          {i < lines.length - 1 ? (
-            <>
-              <br className="hidden sm:inline" />{" "}
-            </>
-          ) : null}
+          {i < lines.length - 1 ? <br /> : null}
         </Fragment>
       ))}
     </>

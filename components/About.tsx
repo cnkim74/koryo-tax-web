@@ -40,12 +40,9 @@ export function About() {
               <div className="mb-3.5 text-sm font-bold text-brand-on-dark">{p.eyebrow}</div>
               <h3 className="m-0 mb-2.5 text-[clamp(1.875rem,5.2vw,2.5rem)] font-extrabold leading-[1.25] tracking-[-0.02em] text-white">
                 {p.name}
-                <span className="ml-2.5 align-middle text-[clamp(0.9375rem,2.2vw,1.0625rem)] font-bold text-night-text">
-                  세무사
-                </span>
               </h3>
               <p className="mt-0 mb-10 text-[15.5px] font-semibold text-brand-on-dark">
-                고려세무법인 용인점 대표
+                고려세무법인 용인점
               </p>
 
               <div className="grid gap-8 border-t border-white/8 pt-9 sm:grid-cols-2">
