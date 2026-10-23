@@ -23,6 +23,7 @@ export const nav = [
   { href: "/#inherit", label: "상속·증여" },
   { href: "/#asset", label: "자산설계" },
   { href: "/#about", label: "법인소개" },
+  { href: "/#press", label: "언론보도" },
   { href: "/blog", label: "세무칼럼" },
   { href: "/#contact", label: "상담안내" },
 ] as const;

@@ -1,6 +1,7 @@
 import { adminConfigured, isLoggedIn } from "@/lib/admin-auth";
 import { countByStatus, listInquiries, type Inquiry } from "@/lib/db";
 import { kakaoChannel } from "@/content/site";
+import { AdminNav } from "@/components/AdminNav";
 
 // 쿠키와 DB 를 읽으므로 매 요청마다 새로 그립니다.
 export const dynamic = "force-dynamic";
@@ -41,6 +42,8 @@ export default async function AdminPage({
             </button>
           </form>
         </header>
+
+        <AdminNav current="inquiries" />
 
         <nav className="mb-5 flex gap-2">
           <FilterLink href="/admin" active={!showOnlyNew} label={`전체 ${counts.total}`} />
