@@ -37,6 +37,17 @@ export const hero = {
   ],
   primaryCta: { href: "#contact", label: "상담 문의하기" },
   secondaryCta: { href: "#tax", label: "서비스 살펴보기" },
+  /**
+   * 메인 히어로 슬라이드 배경. 첫 장은 소개, 나머지는 대표 사업 순서와 같습니다.
+   * 사진은 Unsplash 라이선스(상업적 무료 사용) — public/hero/ 에 있습니다.
+   */
+  images: {
+    intro: { src: "/hero/intro.webp", alt: "유리벽 회의실에서 상담 중인 사람들" },
+    tax: { src: "/hero/tax.webp", alt: "계산기와 장부로 숫자를 검토하는 손" },
+    inherit: { src: "/hero/inherit.webp", alt: "아기의 손을 감싸 쥔 할머니의 손" },
+    asset: { src: "/hero/asset.webp", alt: "동전이 담긴 유리컵에서 자라는 새싹" },
+  },
+  introTab: "고려세무법인",
 } as const;
 
 export const services = {
@@ -44,6 +55,8 @@ export const services = {
     id: "tax",
     icon: "tax" as const,
     eyebrow: "세무기장",
+    /** 메인 히어로에 쓰는 한 줄 요약 */
+    summary: "업종과 자금흐름까지 이해하고, 각 기업에 맞는 세무전략을 설계합니다.",
     titleLines: ["사업을 알아야,", "제대로 된 절세가 시작됩니다."],
     paragraphsHtml: [
       "같은 매출, 같은 이익이라도 사업의 구조와 대표자의 상황에 따라 세금 전략은 달라져야 합니다.",
@@ -55,6 +68,7 @@ export const services = {
     id: "inherit",
     icon: "gift" as const,
     eyebrow: "상속·증여",
+    summary: "언제, 무엇을, 어떻게 — 가족의 상황까지 살핀 이전 전략을 제시합니다.",
     titleLines: ["재산을 물려주는 것에도", "순서와 시간이 필요합니다."],
     paragraphsHtml: [
       "<strong>언제, 무엇을, 어떻게</strong> 이전하느냐에 따라 상속·증여의 결과는 달라집니다.",
@@ -65,6 +79,7 @@ export const services = {
     id: "asset",
     icon: "home" as const,
     eyebrow: "자산설계",
+    summary: "세금·재무·금융을 하나로 연결해, 오래 성장하는 자산 구조를 만듭니다.",
     titleLines: ["절세한 돈,", "그다음이 더 중요합니다."],
     paragraphsHtml: [
       "세금을 줄였다고 자산이 저절로 늘어나는 것은 아닙니다.",
@@ -97,8 +112,8 @@ export const about = {
     photoFallback: "/park-soyoung.jpg",
     photoAlt: "고려세무법인 용인점 대표세무사 박소영",
     /** 실제 픽셀 크기 (로딩 중 레이아웃 밀림 방지) */
-    photoWidth: 960,
-    photoHeight: 1279,
+    photoWidth: 1086,
+    photoHeight: 1448,
     groups: [
       {
         heading: "전문분야",
