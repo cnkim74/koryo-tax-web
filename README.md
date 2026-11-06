@@ -183,17 +183,18 @@ npm run cf:deploy
 | 명령 | 용도 |
 |---|---|
 | `npm run cf:preview` | 로컬 Workers 런타임 미리보기 |
-| `npm run cf:deploy` | **임시 미리보기 배포** — 검색엔진 색인 차단(`noindex`) 상태 |
-| `npm run cf:deploy:prod` | 정식 도메인 배포 — 색인 허용 + thetaxplus.com 연결 (zone 등록 후에만 성공) |
+| `npm run cf:deploy` | 정식 배포 (`cf:deploy:prod` 와 같음) |
+| `npm run cf:deploy:prod` | 정식 도메인 배포 — 색인 허용 + thetaxplus.com 연결 |
+
+> 도메인 연결 후에는 임시(`noindex`) 배포를 없앴습니다. 임시·정식 배포가 같은 Worker(`koryo-tax-web`)를
+> 쓰기 때문에, 임시 빌드를 올리면 실제 사이트가 검색엔진에서 사라지기 때문입니다.
 
 ### ⚠️ 환경변수는 빌드 시점에 박힙니다
 
 `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_NOINDEX` 는 페이지가 미리 생성될 때 값이 들어갑니다.
 그래서 `wrangler.jsonc` 의 `vars` 나 Cloudflare 대시보드에서 나중에 바꿔도 반영되지 않습니다. **빌드 명령에 붙여야** 합니다.
 
-`npm run cf:deploy` 에는 임시 주소(`https://koryo-tax-web.thetaxplus.workers.dev`)가 이미 박혀 있습니다.
-**이 값을 비워두면 공유 미리보기 이미지가 아직 살아있지 않은 실제 도메인을 가리켜 카톡에서 안 보입니다.**
-임시 주소가 바뀌면 `package.json` 의 `cf:deploy` 스크립트를 수정하세요.
+`npm run cf:deploy:prod` 에는 실제 주소(`https://www.thetaxplus.com`)가 박혀 있습니다.
 
 실제 도메인으로 정식 공개할 때:
 
