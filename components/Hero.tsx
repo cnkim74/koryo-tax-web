@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { about, hero, services, site } from "@/content/site";
 
 /** 한 장이 머무는 시간(ms). 진행바 애니메이션이 끝나면 다음 장으로 넘어갑니다. */
-const DURATION = 7000;
+const DURATION = 3000;
 /** 이만큼(px) 이상 끌어야 넘어갑니다. */
 const SWIPE = 56;
 

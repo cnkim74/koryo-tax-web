@@ -17,15 +17,26 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
   },
   async redirects() {
+    const apexOnly = [
+      { type: "host" as const, value: `^${APEX_HOST.replace(/\./g, "\\.")}$` },
+    ];
     return [
+      {
+        // 첫 화면은 따로 둡니다. Cloudflare(OpenNext)에서는 "/:path*" 가 빈 경로일 때
+        // 주소에 ":path*" 글자가 그대로 남아 깨진 주소로 넘어갑니다.
+        source: "/",
+        has: apexOnly,
+        destination: `https://${CANONICAL_HOST}/`,
+        permanent: true,
+      },
       {
         // thetaxplus.com/... → www.thetaxplus.com/...
         // localhost 나 workers.dev 미리보기 주소에는 적용되지 않습니다.
-        source: "/:path*",
+        source: "/:path+",
         // 정규식 앵커(^…$)가 필수입니다. 앵커 없이 "thetaxplus.com" 만 쓰면
         // www.thetaxplus.com 에도 부분 일치해서 무한 리다이렉트가 됩니다.
-        has: [{ type: "host", value: `^${APEX_HOST.replace(/\./g, "\\.")}$` }],
-        destination: `https://${CANONICAL_HOST}/:path*`,
+        has: apexOnly,
+        destination: `https://${CANONICAL_HOST}/:path+`,
         permanent: true,
       },
     ];
